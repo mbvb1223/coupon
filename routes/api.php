@@ -20,5 +20,7 @@ Route::post('users/token', [UserController::class, 'token']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('points/lucky-draw', [PointController::class, 'luckyDraw']);
+
     Route::get('coupons', [CouponController::class, 'index']);
+    Route::put('coupons/{coupon}', [CouponController::class, 'update']);
 });
