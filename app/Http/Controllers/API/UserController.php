@@ -7,6 +7,7 @@ use App\Http\Requests\API\StoreUserRequest;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\SuccessResponse;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -21,9 +22,20 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
         return new SuccessResponse('Created successfully!', $user, 201);
+    }
+
+    public function token(StoreUserRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return new ErrorResponse('The provided credentials are incorrect.', [], 400);
+        }
+
+        return new SuccessResponse('Created successfully!', $user->createToken($request->device_name)->plainTextToken, 201);
     }
 }
