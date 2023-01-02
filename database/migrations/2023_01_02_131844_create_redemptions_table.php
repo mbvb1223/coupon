@@ -18,11 +18,24 @@ class CreateRedemptionsTable extends Migration
             $table->id();
             $table->unsignedTinyInteger('status');
             $table->unsignedBigInteger('user_id');
-            $table->string('key', 32)->unique();
+            $table->unsignedBigInteger('coupon_id');
+            $table->string('key', 64)->unique();
+            $table->text('qr');
+            $table->unsignedBigInteger('price');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->softDeletes();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('restrict');
+
+            $table->foreign('coupon_id')
+                ->references('id')
+                ->on('coupons')
+                ->onDelete('restrict');
         });
     }
 

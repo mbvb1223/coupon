@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CouponController;
 use App\Http\Controllers\API\PointController;
+use App\Http\Controllers\API\RedemptionController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('coupons', [CouponController::class, 'index']);
     Route::put('coupons/{coupon}', [CouponController::class, 'update']);
+
+    Route::post('redemptions/{coupon}', [RedemptionController::class, 'redeem']);
 });

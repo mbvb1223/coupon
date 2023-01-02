@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Coupon extends Model
+class Redemption extends Model
 {
     use SoftDeletes;
 
@@ -15,9 +15,10 @@ class Coupon extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'quota',
-        'required_point',
+        'user_id',
+        'coupon_id',
+        'key',
+        'qr',
         'status',
         'price',
     ];
