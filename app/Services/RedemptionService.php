@@ -50,7 +50,7 @@ class RedemptionService
             'key' => $key,
             'price' => $coupon->price,
             'qr' => base64_encode(QrCode::format('png')->size(100)->generate("$user->name | $key")),
-            'status' => 1,
+            'status' => config('constant.redemption.statues.enable'),
         ]);
 
         $this->pointService->decrease($user->point, $coupon->required_point);
