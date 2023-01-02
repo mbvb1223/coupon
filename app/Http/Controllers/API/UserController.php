@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\GenerateTokenRequest;
 use App\Http\Requests\API\StoreUserRequest;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\SuccessResponse;
@@ -28,7 +29,7 @@ class UserController extends Controller
         return new SuccessResponse('Created successfully!', $user, 201);
     }
 
-    public function token(StoreUserRequest $request)
+    public function token(GenerateTokenRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
