@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\PointController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,5 @@ Route::post('users/create', [UserController::class, 'create']);
 Route::post('users/token', [UserController::class, 'token']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
+    Route::post('points/lucky-draw', [PointController::class, 'luckyDraw']);
 });

@@ -17,7 +17,7 @@ class CreatePoints extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('point');
+            $table->unsignedBigInteger('point_value')->default(0);
             $table->unsignedTinyInteger('status');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

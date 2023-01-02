@@ -17,9 +17,9 @@ class CreatePointHistories extends Migration
         Schema::create('point_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('point_id');
-            $table->bigInteger('point');
+            $table->bigInteger('point_value');
             $table->unsignedTinyInteger('type');
-            $table->text('note');
+            $table->text('note')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
