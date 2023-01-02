@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\User;
 use App\Repositories\RedemptionRepository;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class RedemptionService
 {
@@ -13,6 +14,7 @@ class RedemptionService
      * @var RedemptionRepository
      */
     private $redemptionRepository;
+
     /**
      * @var PointService
      */
@@ -37,10 +39,12 @@ class RedemptionService
             echo 'xxx';
         }
 
+        $key = hash('sha256', Str::random(40));
         $redemption = $this->redemptionRepository->create([
             'user_id' => $user->id,
-            'key' => hash('sha256', Str::random(40)),
-            'status' => 1
+            'key' => $key,
+            'qr' => base64_encode(QrCode::format('png')->size(100)->generate("$user->name | $key")),
+            'status' => 1,
         ]);
 
         $this->pointService->decrease($point, $coupon->required_point);

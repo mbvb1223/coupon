@@ -19,6 +19,7 @@ class CreateRedemptionsTable extends Migration
             $table->unsignedTinyInteger('status');
             $table->unsignedBigInteger('user_id');
             $table->string('key', 64)->unique();
+            $table->text('qr');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
