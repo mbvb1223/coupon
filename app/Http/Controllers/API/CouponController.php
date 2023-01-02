@@ -59,6 +59,42 @@ class CouponController extends Controller
         return new SuccessResponse('Ok!', $coupons);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/coupons/{coupon}",
+     *     summary="Update a coupon",
+     *     tags={"Coupons"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         ),
+     *         style="form"
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             @OA\Schema(
+     *                 example={"email": "phamkhien@hotmail.com", "password": "123456", "device_name": "iphone 2000"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value= {
+    "success": true,
+    "code": 201,
+    "message": "Created successfully!",
+    "data": "2|B9tN94NEoV5sRsK1y59djIKHVSgDq0JkWwV3oiAP"
+    }, summary="An result object."),
+     *         )
+     *     )
+     * )
+     */
     public function update(UpdateCouponRequest $request, Coupon $coupon)
     {
         $coupon->name = $request->name ?? $coupon->name;
