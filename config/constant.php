@@ -7,4 +7,10 @@ return [
             'disable' => 2,
         ],
     ],
+    'point_history' => [
+        'types' => [
+            'increase' => 1,
+            'decrease' => 2,
+        ],
+    ],
 ];
