@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePoints extends Migration
+class CreatePointsTable extends Migration
 {
     /**
      * Run the migrations.
