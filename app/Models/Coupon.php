@@ -19,5 +19,6 @@ class Coupon extends Model
         'quota',
         'required_point',
         'status',
+        'price',
     ];
 }

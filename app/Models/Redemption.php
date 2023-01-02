@@ -16,8 +16,10 @@ class Redemption extends Model
      */
     protected $fillable = [
         'user_id',
+        'coupon_id',
         'key',
         'qr',
         'status',
+        'price',
     ];
 }

@@ -39,15 +39,17 @@ class DatabaseSeeder extends Seeder
         Coupon::create([
             'name' => 'Christmas 2023',
             'quota' => 200,
-            'required_point' => 2,
-            'status' => config('constant.coupon.statues.enable')
+            'required_point' => 50,
+            'status' => config('constant.coupon.statues.enable'),
+            'price' => 500
         ]);
 
         Coupon::create([
             'name' => 'New Year 2023',
             'quota' => 100,
             'required_point' => 1,
-            'status' => config('constant.coupon.statues.enable')
+            'status' => config('constant.coupon.statues.enable'),
+            'price' => 10
         ]);
     }
 }

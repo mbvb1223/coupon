@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidRedeemDataException;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\SuccessResponse;
 use App\Models\Coupon;
 use App\Services\RedemptionService;
@@ -24,7 +26,13 @@ class RedemptionController extends Controller
     {
         $user = $request->user();
 
-        $redemption = $this->redemptionService->redeem($coupon, $user);
+        try {
+            $redemption = $this->redemptionService->redeem($coupon, $user);
+        } catch (InvalidRedeemDataException $invalidRedeemDataException) {
+            return new ErrorResponse($invalidRedeemDataException->getMessage(), null, 409);
+        } catch (\Throwable $throwable) {
+            return new ErrorResponse($throwable->getMessage());
+        }
 
         return new SuccessResponse('Ok!', $redemption);
     }
