@@ -64,10 +64,12 @@ For following scenario of a redemption campaign:
 
 - [x] Redeem e-coupon by points
 1. For this feature, we have more logic, so I used Service/Repository pattern to implement this. Service will handle for business logic and will be covered by Unit Tests. Repo will handle to get Data from Database.
-2. Wroted **Unit tests** to cover 100% RedemptionService here: https://github.com/mbvb1223/coupon/blob/master/tests/Unit/RedemptionServiceTest.php
+2. Wrote **Unit tests** to cover 100% RedemptionService here: https://github.com/mbvb1223/coupon/blob/master/tests/Unit/RedemptionServiceTest.php
 ![Image](https://user-images.githubusercontent.com/11681514/210376023-f32f5aa1-9b3f-4a98-884b-ce4a45bc6483.png)
 
 - [x] Each redemption will have an unique QR code
 1. I used this package to generate QR code: simplesoftwareio/simple-qrcode
 2. QR code will be encoded (base64_encode), FE will decode and show it to end user.
 ![Image](https://user-images.githubusercontent.com/11681514/210376677-b0612180-42b6-4587-9182-faa06726ccf9.png)
+
+# Thanks!
