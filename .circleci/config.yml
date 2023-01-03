@@ -57,6 +57,6 @@ jobs:
             php artisan migrate --force
             ./vendor/bin/phpunit
 workflows:
-  build_deploy:
+  build_testing:
     jobs:
       - build
