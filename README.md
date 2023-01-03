@@ -16,7 +16,7 @@ For following scenario of a redemption campaign:
 - I tried to add more things (Unit test, Functional Test, CI/CD, Swagger, Service/Repository...) to this project instead of going deep
 ### EER Diagram
 ![EER image](https://user-images.githubusercontent.com/11681514/210364965-db3f7322-91fd-48ef-bab4-bbcd4f212c0f.png)
-- We have **coupon_categories** table, User can redeem **coupon_category** to create many **coupons**
+- We have **coupon_categories** table, User can redeem **coupon_category** to get one/many **coupons**
 - **coupons** will have two types
 1. used one time (type=1). It can be created by redemption
 2. used many times (type=2). It is common code (e.g NEWYEAR2023) for anyone can use.
@@ -25,8 +25,6 @@ For following scenario of a redemption campaign:
 - **[Postman collection](https://github.com/mbvb1223/coupon/blob/master/public/Khien%20Coupon.postman_collection.json)**
 - Swagger UI (added some APIs for demo - not all of APIs): http://localhost:8000/api/documentation
 ![EER image](https://user-images.githubusercontent.com/11681514/210369700-7c5550e1-6cbe-42c2-996e-a1942eebd955.png)
-
-  
 
 ### Exported Database
 - **[URL here](https://github.com/mbvb1223/coupon/blob/master/public/coupon_dump20230103.sql)**
