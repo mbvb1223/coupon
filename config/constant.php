@@ -23,4 +23,7 @@ return [
             'decrease' => 2,
         ],
     ],
+    'point' => [
+        'max_lucky_draw_per_day' => 1,
+    ],
 ];
