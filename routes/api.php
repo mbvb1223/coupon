@@ -24,6 +24,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('coupon-categories/', [CouponController::class, 'categories']);
     Route::put('coupon-categories/{couponCategory}', [CouponController::class, 'update']);
-
-    Route::post('redemptions/{couponCategory}', [RedemptionController::class, 'redeem']);
+    Route::post('coupon-categories/{couponCategory}/redeem', [CouponController::class, 'redeem']);
 });

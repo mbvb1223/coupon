@@ -7,8 +7,8 @@ return [
             'disable' => 2,
         ],
         'types' => [
-            'unique' => 1,
-            'non_unique' => 2,
+            'one_time' => 1,
+            'multiple_times' => 2,
         ],
     ],
     'redemption' => [

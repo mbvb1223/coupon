@@ -62,7 +62,7 @@ class RedemptionService
             'quota' => 1,
             'qr' => $this->commonHelper->bash64QrCode($strCode),
             'price' => $couponCategory->price,
-            'type' => config('constant.coupon.types.unique'),
+            'type' => config('constant.coupon.types.one_time'),
             'redemption_id' => $redemption->id,
         ]);
 

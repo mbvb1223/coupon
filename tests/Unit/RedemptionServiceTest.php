@@ -153,7 +153,7 @@ class RedemptionServiceTest extends TestCase
                 'quota' => 1,
                 'qr' => $qrCode,
                 'price' => $couponCategory->price,
-                'type' => config('constant.coupon.types.unique'),
+                'type' => config('constant.coupon.types.one_time'),
                 'redemption_id' => $redemption->id,
             ])->andReturn($coupon);
 
