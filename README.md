@@ -12,11 +12,15 @@ For following scenario of a redemption campaign:
 2. Test 2: Design APIs with sample request and responses (in Postman or document format is fine)
 
 # General
-- This is a test project (not a)
-
+- This is a test project, so I just focus on main things (code logic with only main cases, table-columns are important ones) 
+- I tried to add more things (Unit test, Functional Test, CI/CD, Swagger, Service/Repository...) to this project instead of going deep
 ### EER Diagram
 ![EER image](https://user-images.githubusercontent.com/11681514/210364965-db3f7322-91fd-48ef-bab4-bbcd4f212c0f.png)
-
+- We have **coupon_categories** table, User can redeem **coupon_category** to create many **coupons**
+- **coupons** will have two types
+1. used one time (type=1). It can be created by redemption
+2. used many times (type=2). It is common code (e.g NEWYEAR2023) for anyone can use.
+  ![image](https://user-images.githubusercontent.com/11681514/210383403-5bd191cb-bcfa-408f-bc7d-e266eafeff56.png)
 ### API documents
 - **[Postman collection](https://github.com/mbvb1223/coupon/blob/master/public/Khien%20Coupon.postman_collection.json)**
 - Swagger UI (added some APIs for demo - not all of APIs): http://localhost:8000/api/documentation
@@ -38,15 +42,16 @@ ssss
 - [x] Support multiple languages
 - Please allow me not to finish coding this feature. Because it will take time to support multiple languages in Database and Code layer.
 - I will explain some main ways we can do 
-1. sdf
-2. sdfsdf
-3. sdfsd
+1. Easiest: Coupon(id, name_en, name_vn, price): Add a column for each column of text that needs translation (it is quick but will get big problem when the application grows in functions/more languages)
+2. Medium: Coupon(id, price) + CouponTranslation(coupon_id, language_id, name): Store translated texts into another table. (The drawback for this options is creating more tables but it will support well for multi-language feature)
+3. Hardest: Entity–attribute–value model (EAV) https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model. Magento is using this pattern to support for multi-language. (Not only support well for multi-language but it also support for adding flexible attribues. Database will come much too complicated)
+- **For all options above, we can create an infrastructure code layer to support get/save with multi-language.**
 
 - [x] Register by mobile with password
 1. Create a new user with name+email+password
 2. Use Sanctum: https://laravel.com/docs/9.x/sanctum to generate a new token
 ![Image](https://user-images.githubusercontent.com/11681514/210374702-e66b0dee-f6c4-4ead-b745-c9759fbf5596.png)
-3. Wrote function testing to cover 100% User APIs => https://github.com/mbvb1223/coupon/blob/master/tests/Feature/UserTest.php. We can check online result here https://app.circleci.com/pipelines/github/mbvb1223/coupon/13/workflows/25abfe92-148a-44f3-9053-79e74f2e4327/jobs/13/parallel-runs/0/steps/0-109
+3. Wrote **Function Testing** to cover 100% User APIs => https://github.com/mbvb1223/coupon/blob/master/tests/Feature/UserTest.php. We can check online result here https://app.circleci.com/pipelines/github/mbvb1223/coupon/13/workflows/25abfe92-148a-44f3-9053-79e74f2e4327/jobs/13/parallel-runs/0/steps/0-109
 ![Image](https://user-images.githubusercontent.com/11681514/210371973-b247c5dd-1e56-4ba7-a503-6073d9083602.png)
 
 - [x] Earn random points by daily lucky draw (once a day)
@@ -60,7 +65,7 @@ ssss
 
 - [x] Redeem e-coupon by points
 1. For this feature, we have more logic, so I used Service/Repository pattern to implement this. Service will handle for business logic and will be covered by Unit Tests. Repo will handle to get Data from Database.
-2. Unit tests for RedemptionService here: https://github.com/mbvb1223/coupon/blob/master/tests/Unit/RedemptionServiceTest.php
+2. Wroted **Unit tests** to cover 100% RedemptionService here: https://github.com/mbvb1223/coupon/blob/master/tests/Unit/RedemptionServiceTest.php
 ![Image](https://user-images.githubusercontent.com/11681514/210376023-f32f5aa1-9b3f-4a98-884b-ce4a45bc6483.png)
 
 - [x] Each redemption will have an unique QR code
