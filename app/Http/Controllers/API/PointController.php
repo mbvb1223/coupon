@@ -46,11 +46,7 @@ class PointController extends Controller
             ->whereDate('created_at', DB::raw('CURDATE()'))
             ->get();
 
-        if ($pointHistory->count() > 0) {
-            return false;
-        }
-
-        return true;
+        return !($pointHistory->count() >= config('constant.point.max_lucky_draw_per_day'));
     }
 
     private function getPointNumber(): int
