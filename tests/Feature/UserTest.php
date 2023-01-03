@@ -46,7 +46,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testCreateNotToken()
+    public function testCreateTokenWithInvalidData()
     {
         $this->post('/api/users/create', ['name' => 'Khien', 'email' =>  "test@khien.com", 'password' => 123456])
             ->assertJson(['success' => true]);
@@ -60,7 +60,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testCreateTokenSuccesfully()
+    public function testCreateTokenSuccessfully()
     {
         $this->post('/api/users/create', ['name' => 'Khien', 'email' =>  "test@khien.com", 'password' => 123456])
             ->assertJson(['success' => true]);
