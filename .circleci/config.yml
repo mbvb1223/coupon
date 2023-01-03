@@ -55,7 +55,7 @@ jobs:
           name: Setup DB and run test
           command: |
             php artisan migrate --force
-            ./vendor/bin/phpunit
+            ./vendor/bin/phpunit --coverage-html coverage
 workflows:
   build_testing:
     jobs:
