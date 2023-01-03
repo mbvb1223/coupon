@@ -3,13 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\Coupon;
+use App\Models\CouponCategory;
 
 class CouponRepository
 {
-    public function update(array $attributes, int $id)
+    public function create(array $attributes)
     {
-        $coupon = Coupon::find($id);
+        return Coupon::create(array_merge($attributes));
+    }
 
-        return $coupon->update($attributes);
+    public function updateCategory(array $attributes, int $id)
+    {
+        $couponCategory = CouponCategory::find($id);
+
+        return $couponCategory->update($attributes);
     }
 }

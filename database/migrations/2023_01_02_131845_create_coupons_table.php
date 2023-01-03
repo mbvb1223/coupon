@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRedemptionsTable extends Migration
+class CreateCouponsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,23 +14,28 @@ class CreateRedemptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('redemptions', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('coupon_category_id');
+            $table->string('key', 64)->unique();
+            $table->unsignedTinyInteger('status');
+            $table->unsignedBigInteger('quota')->default(0);
+            $table->text('qr');
+            $table->unsignedBigInteger('price');
+            $table->unsignedTinyInteger('type');
+            $table->unsignedBigInteger('coupon_category_id')->nullable();
+            $table->unsignedBigInteger('redemption_id')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->softDeletes();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('restrict');
-
             $table->foreign('coupon_category_id')
                 ->references('id')
                 ->on('coupon_categories')
+                ->onDelete('restrict');
+            $table->foreign('redemption_id')
+                ->references('id')
+                ->on('redemptions')
                 ->onDelete('restrict');
         });
     }
@@ -42,6 +47,6 @@ class CreateRedemptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('redemptions');
+        Schema::dropIfExists('coupons');
     }
 }

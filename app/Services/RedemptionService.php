@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\InvalidRedeemDataException;
-use App\Models\Coupon;
+use App\Models\CouponCategory;
 use App\Models\User;
 use App\Repositories\RedemptionRepository;
 use Illuminate\Support\Str;
@@ -39,42 +39,49 @@ class RedemptionService
     /**
      * @throws InvalidRedeemDataException
      */
-    public function redeem(Coupon $coupon, User $user)
+    public function redeem(CouponCategory $couponCategory, User $user)
     {
-        $this->validate($coupon, $user);
+        $this->validate($couponCategory, $user);
 
-        $key = hash('sha256', Str::random(40));
+
         $redemption = $this->redemptionRepository->create([
             'user_id' => $user->id,
-            'coupon_id' => $coupon->id,
-            'key' => $key,
-            'price' => $coupon->price,
-            'qr' => base64_encode(QrCode::format('png')->size(100)->generate("$user->name | $key")),
-            'status' => config('constant.redemption.statues.enable'),
+            'coupon_category_id' => $couponCategory->id,
         ]);
 
-        $this->pointService->decrease($user->point, $coupon->required_point);
+        $key = hash('sha256', Str::random(40));
+        $coupon = $this->couponService->create([
+            'key' => $key,
+            'status' => config('constant.coupon.statues.enable'),
+            'quota' => 1,
+            'qr' => base64_encode(QrCode::format('png')->size(100)->generate("$user->name | $key")),
+            'price' => $couponCategory->price,
+            'type' => config('constant.coupon.types.unique'),
+            'redemption_id' => $redemption->id,
+        ]);
 
-        $this->couponService->update(['quota' => $coupon->quota - 1], $coupon->id);
+        $this->pointService->decrease($user->point, $couponCategory->required_point);
 
-        return $redemption;
+        $this->couponService->updateCategory(['quota' => $couponCategory->quota - 1], $couponCategory->id);
+
+        return $coupon;
     }
 
     /**
      * @throws InvalidRedeemDataException
      */
-    private function validate(Coupon $coupon, User $user)
+    private function validate(CouponCategory $couponCategory, User $user)
     {
-        if ($coupon->status != config('constant.coupon.statues.enable')) {
+        if ($couponCategory->status != config('constant.coupon.statues.enable')) {
            throw new InvalidRedeemDataException('Coupon is not active!');
         }
 
-        if (!$coupon->quota) {
+        if (!$couponCategory->quota) {
             throw new InvalidRedeemDataException('Coupon quota exceeded!');
         }
 
         $point = $user->point;
-        if (!$point || $point->point_value < $coupon->required_point) {
+        if (!$point || $point->point_value < $couponCategory->required_point) {
             throw new InvalidRedeemDataException('You do not have enough Point!');
         }
     }

@@ -1,0 +1,263 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API documents",
+        "description": "API documentation for Khien-Test-App",
+        "contact": {
+            "email": "phamkhien@hotmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Server"
+        }
+    ],
+    "paths": {
+        "/api": {},
+        "/coupons": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "List coupons",
+                "operationId": "db8511137857d0a8eec11e851ecf6a01",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object.",
+                                        "value": {
+                                            "success": true,
+                                            "code": 200,
+                                            "message": "Ok!",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "name": "Christmas 2023",
+                                                    "status": 1,
+                                                    "quota": 200,
+                                                    "required_point": 50,
+                                                    "price": 500,
+                                                    "created_at": "2023-01-02T16:35:08.000000Z",
+                                                    "updated_at": "2023-01-02T16:35:08.000000Z",
+                                                    "deleted_at": null
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "name": "New Year 2023",
+                                                    "status": 1,
+                                                    "quota": 97,
+                                                    "required_point": 1,
+                                                    "price": 10,
+                                                    "created_at": "2023-01-02T16:35:08.000000Z",
+                                                    "updated_at": "2023-01-02T16:40:58.000000Z",
+                                                    "deleted_at": null
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/coupons/{coupon}": {
+            "put": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Update a coupon",
+                "operationId": "4fefdbcd515caa2eb124c254c107b00c",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "email": "phamkhien@hotmail.com",
+                                    "password": "123456",
+                                    "device_name": "iphone 2000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object.",
+                                        "value": {
+                                            "success": true,
+                                            "code": 201,
+                                            "message": "Created successfully!",
+                                            "data": "2|B9tN94NEoV5sRsK1y59djIKHVSgDq0JkWwV3oiAP"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/users/create": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user",
+                "operationId": "5ea46ab89318fda371fe44406990a1e4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Khien",
+                                    "email": "test@gmail.com",
+                                    "password": "123456"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object.",
+                                        "value": {
+                                            "success": true,
+                                            "code": 201,
+                                            "message": "Created successfully!",
+                                            "data": {
+                                                "name": "Khien",
+                                                "email": "tes1t@gmail.comd",
+                                                "updated_at": "2023-01-02T17:34:33.000000Z",
+                                                "created_at": "2023-01-02T17:34:33.000000Z",
+                                                "id": 4
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/token": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Generate a new token",
+                "operationId": "c805908ecd10faf2c4ed462d8e308dc0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "device_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "phamkhien@hotmail.com",
+                                    "password": "123456",
+                                    "device_name": "iphone 2000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object.",
+                                        "value": {
+                                            "success": true,
+                                            "code": 201,
+                                            "message": "Created successfully!",
+                                            "data": "2|B9tN94NEoV5sRsK1y59djIKHVSgDq0JkWwV3oiAP"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

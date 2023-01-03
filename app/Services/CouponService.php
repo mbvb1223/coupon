@@ -16,8 +16,13 @@ class CouponService
         $this->couponRepository = $couponRepository;
     }
 
-    public function update(array $attributes, int $id)
+    public function create(array $attributes)
     {
-        return $this->couponRepository->update($attributes, $id);
+        return $this->couponRepository->create($attributes);
+    }
+
+    public function updateCategory(array $attributes, int $id)
+    {
+        return $this->couponRepository->updateCategory($attributes, $id);
     }
 }
