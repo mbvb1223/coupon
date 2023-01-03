@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coupon;
+use App\Models\CouponCategory;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
 
     private function createCoupons()
     {
-        Coupon::create([
+        CouponCategory::create([
             'name' => 'Christmas 2023',
             'quota' => 200,
             'required_point' => 50,
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             'price' => 500
         ]);
 
-        Coupon::create([
+        CouponCategory::create([
             'name' => 'New Year 2023',
             'quota' => 100,
             'required_point' => 1,

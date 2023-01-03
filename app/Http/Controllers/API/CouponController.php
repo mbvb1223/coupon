@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UpdateCouponRequest;
 use App\Http\Responses\SuccessResponse;
-use App\Models\Coupon;
+use App\Models\CouponCategory;
 
 class CouponController extends Controller
 {
@@ -52,11 +52,11 @@ class CouponController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function categories()
     {
-        $coupons = Coupon::all();
+        $couponCategories = CouponCategory::all();
 
-        return new SuccessResponse('Ok!', $coupons);
+        return new SuccessResponse('Ok!', $couponCategories);
     }
 
     /**
@@ -95,14 +95,14 @@ class CouponController extends Controller
      *     )
      * )
      */
-    public function update(UpdateCouponRequest $request, Coupon $coupon)
+    public function update(UpdateCouponRequest $request, CouponCategory $couponCategory)
     {
-        $coupon->name = $request->name ?? $coupon->name;
-        $coupon->quota = $request->quota ?? $coupon->quota;
-        $coupon->required_point = $request->required_point ?? $coupon->required_point;
+        $couponCategory->name = $request->name ?? $couponCategory->name;
+        $couponCategory->quota = $request->quota ?? $couponCategory->quota;
+        $couponCategory->required_point = $request->required_point ?? $couponCategory->required_point;
 
-        $coupon->save();
+        $couponCategory->save();
 
-        return new SuccessResponse('Ok!', $coupon);
+        return new SuccessResponse('Ok!', $couponCategory);
     }
 }
