@@ -25,9 +25,9 @@ class CouponController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/coupons",
-     *     summary="List coupons",
-     *     tags={"Coupons"},
+     *     path="/coupon-categories",
+     *     summary="List coupon-categories",
+     *     tags={"Coupon Categories"},
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
@@ -75,9 +75,9 @@ class CouponController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/coupons/{coupon}",
-     *     summary="Update a coupon",
-     *     tags={"Coupons"},
+     *     path="/coupon-categories/{coupon-category}",
+     *     summary="Update a coupon-categories",
+     *     tags={"Coupon Categories"},
      *     security={ {"sanctum": {} }},
      *     @OA\Parameter(
      *         name="name",
@@ -90,6 +90,7 @@ class CouponController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         @OA\MediaType(
+     *              mediaType="application/json",
      *             @OA\Schema(
      *                 example={"email": "phamkhien@hotmail.com", "password": "123456", "device_name": "iphone 2000"}
      *             )
