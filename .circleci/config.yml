@@ -20,7 +20,7 @@ jobs:
           name: Install PHP exts
           command: |
             sudo apt-get install libpng-dev
-            sudo docker-php-ext-install zip pdo_mysql mbstring exif pcntl bcmath gd
+            sudo docker-php-ext-install zip pdo_mysql exif pcntl bcmath gd
             cp .env.testing .env
             npm install cross-env
 
