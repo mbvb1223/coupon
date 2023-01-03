@@ -1,0 +1,62 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.3.15-fpm-node-browsers
+      - image: circleci/mysql:8.0.20-ram
+        command: [--default-authentication-plugin=mysql_native_password]
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: 'a'
+          MYSQL_DATABASE: laravel
+
+    working_directory: ~/laravel
+
+    steps:
+      - checkout
+      - run:
+          name: Install PHP exts
+          command: |
+            sudo apt-get install libpng-dev
+            sudo docker-php-ext-install zip pdo_mysql mbstring exif pcntl bcmath gd
+            cp .env.testing .env
+            npm install cross-env
+
+      # Download and cache dependencies PHP
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      # Download and cache dependencies NPM
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+
+      - run: npm install && npm run production
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: node-v1-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Setup DB and run test
+          command: |
+            php artisan migrate --force
+            ./vendor/bin/phpunit
+workflows:
+  build_deploy:
+    jobs:
+      - build
