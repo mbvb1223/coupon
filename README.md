@@ -36,7 +36,8 @@ For following scenario of a redemption campaign:
 - **[Circleci](https://app.circleci.com/pipelines/github/mbvb1223/coupon)**
 
 ### Demo Video 
-ssss
+[![Video](https://img.youtube.com/vi/dZHEcgTKtxA/0.jpg)](https://www.youtube.com/watch?v=dZHEcgTKtxA)
+
 
 # More detail
 - [x] Support multiple languages
